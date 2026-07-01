@@ -1,1 +1,4 @@
-
+py-cord
+pymongo
+python-dotenv
+requests
