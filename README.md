@@ -1,2 +1,13 @@
-# HenXBot
-🟧 O bot completo para organizar, automatizar e evoluir comunidades Discord.
+# 🟧 HenXBot
+
+Bot Discord criado por HenriqueX Brito.
+
+Prefixo: hxb!
+
+Funcionalidades planejadas:
+- Tickets
+- XP
+- Economia
+- Logs
+- YouTube
+- Backup
