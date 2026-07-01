@@ -1,0 +1,2 @@
+PREFIX = "hxb!"
+COLOR = 0xFF5B00
