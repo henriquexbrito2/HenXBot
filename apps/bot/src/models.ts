@@ -48,6 +48,16 @@ const UserSchema = new mongoose.Schema({
         default: []
     },
 
+    lastDaily: {
+        type: Date,
+        default: null
+    },
+
+    lastWork: {
+        type: Date,
+        default: null
+    },
+
     createdAt: {
         type: Date,
         default: Date.now
@@ -91,6 +101,16 @@ const GuildSchema = new mongoose.Schema({
     automod: {
         type: Boolean,
         default: false
+    },
+
+    economyEnabled: {
+        type: Boolean,
+        default: true
+    },
+
+    xpEnabled: {
+        type: Boolean,
+        default: true
     }
 
 });
