@@ -1,5 +1,24 @@
 import mongoose from "mongoose";
 
+const WarningSchema = new mongoose.Schema({
+
+    moderatorId: {
+        type: String,
+        required: true
+    },
+
+    reason: {
+        type: String,
+        default: "Nenhum motivo informado"
+    },
+
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+
+});
+
 const UserSchema = new mongoose.Schema({
 
     userId: {
@@ -48,6 +67,11 @@ const UserSchema = new mongoose.Schema({
         default: []
     },
 
+    warnings: {
+        type: [WarningSchema],
+        default: []
+    },
+
     lastDaily: {
         type: Date,
         default: null
@@ -83,6 +107,16 @@ const GuildSchema = new mongoose.Schema({
         default: null
     },
 
+    modLogsChannel: {
+        type: String,
+        default: null
+    },
+
+    ticketLogsChannel: {
+        type: String,
+        default: null
+    },
+
     welcomeChannel: {
         type: String,
         default: null
@@ -109,6 +143,16 @@ const GuildSchema = new mongoose.Schema({
     },
 
     xpEnabled: {
+        type: Boolean,
+        default: true
+    },
+
+    moderationEnabled: {
+        type: Boolean,
+        default: true
+    },
+
+    ticketsEnabled: {
         type: Boolean,
         default: true
     }
