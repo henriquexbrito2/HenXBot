@@ -10,13 +10,17 @@ dotenv.config();
 
 const commands = [
 
+    // Utilidade
+
     new SlashCommandBuilder()
         .setName("ping")
         .setDescription("Verifica a latência"),
 
     new SlashCommandBuilder()
         .setName("help")
-        .setDescription("Mostra a ajuda do bot"),
+        .setDescription("Mostra os comandos do bot"),
+
+    // Perfil
 
     new SlashCommandBuilder()
         .setName("perfil")
@@ -40,7 +44,121 @@ const commands = [
 
     new SlashCommandBuilder()
         .setName("top")
-        .setDescription("Veja o top 10 do servidor")
+        .setDescription("Veja o top 10"),
+
+    // Moderação
+
+    new SlashCommandBuilder()
+        .setName("warn")
+        .setDescription("Adiciona um aviso")
+        .addUserOption(option =>
+            option
+                .setName("usuario")
+                .setDescription("Usuário")
+                .setRequired(true)
+        )
+        .addStringOption(option =>
+            option
+                .setName("motivo")
+                .setDescription("Motivo")
+                .setRequired(true)
+        ),
+
+    new SlashCommandBuilder()
+        .setName("warns")
+        .setDescription("Ver avisos de um usuário")
+        .addUserOption(option =>
+            option
+                .setName("usuario")
+                .setDescription("Usuário")
+                .setRequired(true)
+        ),
+
+    new SlashCommandBuilder()
+        .setName("removewarn")
+        .setDescription("Remove um aviso")
+        .addUserOption(option =>
+            option
+                .setName("usuario")
+                .setDescription("Usuário")
+                .setRequired(true)
+        )
+        .addIntegerOption(option =>
+            option
+                .setName("numero")
+                .setDescription("Número do aviso")
+                .setRequired(true)
+        ),
+
+    // Kick
+
+    new SlashCommandBuilder()
+        .setName("kick")
+        .setDescription("Expulsa um usuário")
+        .addUserOption(option =>
+            option
+                .setName("usuario")
+                .setDescription("Usuário")
+                .setRequired(true)
+        )
+        .addStringOption(option =>
+            option
+                .setName("motivo")
+                .setDescription("Motivo")
+                .setRequired(false)
+        ),
+
+    // Ban
+
+    new SlashCommandBuilder()
+        .setName("ban")
+        .setDescription("Bane um usuário")
+        .addUserOption(option =>
+            option
+                .setName("usuario")
+                .setDescription("Usuário")
+                .setRequired(true)
+        )
+        .addStringOption(option =>
+            option
+                .setName("motivo")
+                .setDescription("Motivo")
+                .setRequired(false)
+        ),
+
+    // Timeout
+
+    new SlashCommandBuilder()
+        .setName("timeout")
+        .setDescription("Aplica timeout")
+        .addUserOption(option =>
+            option
+                .setName("usuario")
+                .setDescription("Usuário")
+                .setRequired(true)
+        )
+        .addIntegerOption(option =>
+            option
+                .setName("minutos")
+                .setDescription("Duração")
+                .setRequired(true)
+        )
+        .addStringOption(option =>
+            option
+                .setName("motivo")
+                .setDescription("Motivo")
+                .setRequired(false)
+        ),
+
+    // Tickets
+
+    new SlashCommandBuilder()
+        .setName("ticket-painel")
+        .setDescription("Envia o painel de tickets"),
+
+    new SlashCommandBuilder()
+        .setName("ticket-fechar")
+        .setDescription("Fecha o ticket atual")
 
 ].map(command => command.toJSON());
 
