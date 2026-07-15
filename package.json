@@ -1,0 +1,22 @@
+{
+"name": "henxbot",
+"version": "1.0.0",
+"description": "HenXBot - Discord Bot",
+"main": "dist/bot.js",
+"scripts": {
+"dev": "ts-node apps/bot/src/bot.ts",
+"build": "tsc",
+"start": "node dist/apps/bot/src/bot.js",
+"deploy": "ts-node apps/bot/src/registerCommands.ts"
+},
+"dependencies": {
+"discord.js": "^14.21.0",
+"dotenv": "^17.2.1",
+"mongoose": "^8.18.0"
+},
+"devDependencies": {
+"@types/node": "^24.3.0",
+"ts-node": "^10.9.2",
+"typescript": "^5.9.2"
+}
+}
