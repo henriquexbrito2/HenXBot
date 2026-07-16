@@ -1,4 +1,4 @@
-```ts
+ts
 import {
     ChatInputCommandInteraction,
     EmbedBuilder,
