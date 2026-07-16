@@ -317,7 +317,6 @@ export async function sendTicketPanel(
     });
 
 }
-}
 
 export async function handleTicketClose(
     interaction: ButtonInteraction
