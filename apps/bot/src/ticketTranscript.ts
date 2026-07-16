@@ -109,17 +109,17 @@ const htmlMessages =
             message.attachments
                 .map(
                     attachment =>
-                        `
+                        
                         <div class="attachment">
                             <a href="${attachment.url}" target="_blank">
                                 ${attachment.name}
                             </a>
                         </div>
-                        `
+                        
                 )
                 .join("");
 
-        return `
+        return
             <div class="message">
 
                 <div class="header">
@@ -139,11 +139,11 @@ const htmlMessages =
                 ${attachments}
 
             </div>
-        `;
+        ;
 
     }).join("");
 
-return `
+return 
 
 
 <!DOCTYPE html>
@@ -276,7 +276,7 @@ body {
         new Date()
     )}
 </p>
-```
+
 
 </div>
 
@@ -285,6 +285,6 @@ ${htmlMessages}
 </body>
 
 </html>
-`;
+;
 
 }
