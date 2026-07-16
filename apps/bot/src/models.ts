@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 
 const WarningSchema = new mongoose.Schema({
 
-```
 moderatorId: {
     type: String,
     required: true
@@ -17,13 +16,13 @@ createdAt: {
     type: Date,
     default: Date.now
 }
-```
+
 
 });
 
 const TicketQuestionSchema = new mongoose.Schema({
 
-```
+
 label: {
     type: String,
     required: true
@@ -43,13 +42,13 @@ maxLength: {
     type: Number,
     default: 200
 }
-```
+
 
 });
 
 const TicketCategorySchema = new mongoose.Schema({
 
-```
+
 categoryId: {
     type: String,
     required: true
@@ -89,13 +88,13 @@ questions: {
     type: [TicketQuestionSchema],
     default: []
 }
-```
+
 
 });
 
 const TicketButtonSchema = new mongoose.Schema({
 
-```
+
 customId: {
     type: String,
     required: true
@@ -120,13 +119,13 @@ enabled: {
     type: Boolean,
     default: true
 }
-```
+
 
 });
 
 const TicketConfigSchema = new mongoose.Schema({
 
-```
+
 enabled: {
     type: Boolean,
     default: true
@@ -171,13 +170,13 @@ buttons: {
     type: [TicketButtonSchema],
     default: []
 }
-```
+
 
 });
 
 const TicketSchema = new mongoose.Schema({
 
-```
+
 guildId: {
     type: String,
     required: true
@@ -237,13 +236,13 @@ closedAt: {
     type: Date,
     default: null
 }
-```
+
 
 });
 
 const UserSchema = new mongoose.Schema({
 
-```
+
 userId: {
     type: String,
     required: true,
@@ -309,13 +308,13 @@ createdAt: {
     type: Date,
     default: Date.now
 }
-```
+
 
 });
 
 const GuildSchema = new mongoose.Schema({
 
-```
+
 guildId: {
     type: String,
     required: true,
@@ -386,7 +385,7 @@ ticketConfig: {
     type: TicketConfigSchema,
     default: () => ({})
 }
-```
+
 
 });
 
