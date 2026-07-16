@@ -317,3 +317,186 @@ export async function sendTicketPanel(
 
 }
 }
+
+export async function handleTicketClose(
+    interaction: ButtonInteraction
+) {
+
+    if (
+        interaction.customId !==
+        "ticket_close"
+    ) return;
+
+    if (!interaction.guild) return;
+
+    const ticket =
+        await Ticket.findOne({
+
+            guildId:
+                interaction.guild.id,
+
+            channelId:
+                interaction.channelId,
+
+            closed: false
+
+        });
+
+    if (!ticket) {
+
+        return interaction.reply({
+
+            content:
+                "❌ Este canal não é um ticket válido.",
+
+            ephemeral: true
+
+        });
+
+    }
+
+    await interaction.reply({
+
+        content:
+            "📝 Gerando transcript...",
+
+        ephemeral: true
+
+    });
+
+    const guildConfig =
+        await Guild.findOne({
+
+            guildId:
+                interaction.guild.id
+
+        });
+
+    const channel =
+        interaction.channel as TextChannel;
+
+    let transcriptHtml =
+        "<html><body>Erro ao gerar transcript.</body></html>";
+
+    try {
+
+        transcriptHtml =
+            await createTranscript(
+                channel
+            );
+
+    } catch (error) {
+
+        console.error(
+            "Erro ao gerar transcript:",
+            error
+        );
+
+    }
+
+    ticket.closed = true;
+
+    ticket.closedBy =
+        interaction.user.id;
+
+    ticket.closedAt =
+        new Date();
+
+    await ticket.save();
+
+    const logChannelId =
+        guildConfig?.ticketLogsChannel ||
+        guildConfig?.ticketConfig?.logsChannel;
+
+    if (logChannelId) {
+
+        const logChannel =
+            interaction.guild.channels.cache.get(
+                logChannelId
+            ) as TextChannel;
+
+        if (logChannel) {
+
+            const embed =
+                new EmbedBuilder()
+                    .setTitle(
+                        "🎫 Ticket Fechado"
+                    )
+                    .addFields(
+                        {
+                            name:
+                                "Usuário",
+
+                            value:
+                                `<@${ticket.creatorId}>`
+                        },
+                        {
+                            name:
+                                "Fechado por",
+
+                            value:
+                                `<@${interaction.user.id}>`
+                        },
+                        {
+                            name:
+                                "Categoria",
+
+                            value:
+                                ticket.categoryName
+                        }
+                    )
+                    .setTimestamp();
+
+            const transcriptBuffer =
+                Buffer.from(
+                    transcriptHtml,
+                    "utf8"
+                );
+
+            await logChannel.send({
+
+                embeds: [embed],
+
+                files: [
+                    {
+                        attachment:
+                            transcriptBuffer,
+
+                        name:
+                            `ticket-${ticket.channelId}.html`
+                    }
+                ]
+
+            });
+
+        }
+
+    }
+
+    await channel.send({
+
+        content:
+            "🔒 Ticket fechado. Canal será removido em 5 segundos."
+
+    });
+
+    setTimeout(
+        async () => {
+
+            try {
+
+                await channel.delete();
+
+            } catch (error) {
+
+                console.error(
+                    error
+                );
+
+            }
+
+        },
+        5000
+    );
+
+}
