@@ -1,105 +1,110 @@
-import mongoose from "mongoose";
+const TicketQuestionSchema = new mongoose.Schema({
 
-const WarningSchema = new mongoose.Schema({
-
-    moderatorId: {
+    label: {
         type: String,
         required: true
     },
 
-    reason: {
+    placeholder: {
         type: String,
-        default: "Nenhum motivo informado"
+        default: ""
     },
 
-    createdAt: {
-        type: Date,
-        default: Date.now
+    required: {
+        type: Boolean,
+        default: true
+    },
+
+    maxLength: {
+        type: Number,
+        default: 200
     }
 
 });
 
-const UserSchema = new mongoose.Schema({
+const TicketCategorySchema = new mongoose.Schema({
 
-    userId: {
+    categoryId: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
 
-    coins: {
-        type: Number,
-        default: 0
+    name: {
+        type: String,
+        required: true
     },
 
-    bank: {
-        type: Number,
-        default: 0
+    emoji: {
+        type: String,
+        default: "🎫"
     },
 
-    xp: {
-        type: Number,
-        default: 0
+    description: {
+        type: String,
+        default: ""
     },
 
-    level: {
+    supportRoles: {
+        type: [String],
+        default: []
+    },
+
+    priority: {
         type: Number,
         default: 1
     },
 
-    reputation: {
-        type: Number,
-        default: 0
-    },
-
-    marriedTo: {
+    autoMessage: {
         type: String,
-        default: null
+        default: ""
     },
 
-    achievements: {
-        type: [String],
+    questions: {
+        type: [TicketQuestionSchema],
         default: []
-    },
-
-    inventory: {
-        type: [String],
-        default: []
-    },
-
-    warnings: {
-        type: [WarningSchema],
-        default: []
-    },
-
-    lastDaily: {
-        type: Date,
-        default: null
-    },
-
-    lastWork: {
-        type: Date,
-        default: null
-    },
-
-    createdAt: {
-        type: Date,
-        default: Date.now
     }
 
 });
 
-const GuildSchema = new mongoose.Schema({
+const TicketButtonSchema = new mongoose.Schema({
 
-    guildId: {
+    customId: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
 
-    prefix: {
+    label: {
         type: String,
-        default: "hxb!"
+        required: true
+    },
+
+    emoji: {
+        type: String,
+        default: null
+    },
+
+    style: {
+        type: String,
+        default: "Primary"
+    },
+
+    enabled: {
+        type: Boolean,
+        default: true
+    }
+
+});
+
+const TicketConfigSchema = new mongoose.Schema({
+
+    enabled: {
+        type: Boolean,
+        default: true
+    },
+
+    panelChannel: {
+        type: String,
+        default: null
     },
 
     logsChannel: {
@@ -107,62 +112,34 @@ const GuildSchema = new mongoose.Schema({
         default: null
     },
 
-    modLogsChannel: {
+    transcriptChannel: {
         type: String,
         default: null
     },
 
-    ticketLogsChannel: {
+    categoryParent: {
         type: String,
         default: null
     },
 
-    welcomeChannel: {
-        type: String,
-        default: null
+    maxTicketsPerUser: {
+        type: Number,
+        default: 1
     },
 
-    ticketCategory: {
-        type: String,
-        default: null
+    cooldownMinutes: {
+        type: Number,
+        default: 0
     },
 
-    supportRole: {
-        type: String,
-        default: null
+    categories: {
+        type: [TicketCategorySchema],
+        default: []
     },
 
-    automod: {
-        type: Boolean,
-        default: false
-    },
-
-    economyEnabled: {
-        type: Boolean,
-        default: true
-    },
-
-    xpEnabled: {
-        type: Boolean,
-        default: true
-    },
-
-    moderationEnabled: {
-        type: Boolean,
-        default: true
-    },
-
-    ticketsEnabled: {
-        type: Boolean,
-        default: true
+    buttons: {
+        type: [TicketButtonSchema],
+        default: []
     }
 
 });
-
-export const User =
-    mongoose.models.User ||
-    mongoose.model("User", UserSchema);
-
-export const Guild =
-    mongoose.models.Guild ||
-    mongoose.model("Guild", GuildSchema);
