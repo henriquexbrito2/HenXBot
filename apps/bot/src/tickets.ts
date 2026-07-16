@@ -121,6 +121,7 @@ export async function sendTicketPanel(
             "✅ Painel enviado.",
         ephemeral: true
     });
+}
 
   export async function handleTicketSelect(
     interaction: StringSelectMenuInteraction
